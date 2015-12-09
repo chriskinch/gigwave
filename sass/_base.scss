@@ -1,0 +1,108 @@
+//
+// Base partial
+//
+// This base partial is organized in this way:
+// - First we set any shared Sass variables.
+// - Next we import Compass plug-ins (Sass mixin libraries).
+// - Last we define our custom mixins for this theme.
+//
+
+
+// =============================================================================
+// Variables
+// =============================================================================
+
+//
+// Font faces, stacks and sizes.
+//
+
+// Compass' vertical_rhythm extension is a powerful tool to set up a vertical
+// rhythm for your entire page. You can see some of its mixins and functions in
+// use in the normalize.scss file.
+// @see http://compass-style.org/reference/compass/typography/vertical_rhythm/
+
+$base-font-size:   16px; // The font size set on the root html element.
+$base-line-height: 24px; // This line-height determines the basic unit of vertical rhythm.
+
+$indent-amount: 30px; // The amount lists, blockquotes and comments are indented.
+
+$h1-font-size: 2    * $base-font-size;
+$h2-font-size: 1.5  * $base-font-size;
+$h3-font-size: 1.17 * $base-font-size;
+$h4-font-size: 1    * $base-font-size;
+$h5-font-size: 0.83 * $base-font-size;
+$h6-font-size: 0.67 * $base-font-size;
+
+//
+// @fontface
+//
+// Instead of relying on the fonts that are available on a user's computer, you
+// can use web fonts which, like images, are resources downloaded to the user's
+// browser. Because of the bandwidth and rendering resources required, web fonts
+// should be used with care.
+//
+
+// Import via Google Fonts.
+// @import url("http://fonts.googleapis.com/css?family=Open+Sans");
+
+
+// Host it yourself.
+/*
+@font-face {
+  font-family: 'Example';
+  src: url('../fonts/example.eot');
+  src: url('../fonts/example.eot?iefix') format('eot'),
+    url('../fonts/example.woff') format('woff'),
+    url('../fonts/example.ttf') format('truetype'),
+    url('../fonts/example.svg#webfontOkOndcij') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+
+
+// Now, let's create some font stacks.
+$times-new-roman: "Times New Roman", Times, Georgia, "DejaVu Serif", serif;
+$times:           Times, "Times New Roman", Georgia, "DejaVu Serif", serif;
+$georgia:         Georgia, "Times New Roman", "DejaVu Serif", serif;
+
+$verdana:         Verdana, Tahoma, "DejaVu Sans", sans-serif;
+$tahoma:          Tahoma, Verdana, "DejaVu Sans", sans-serif;
+$helvetica:       Helvetica, Arial, "Nimbus Sans L", sans-serif;
+$arial:           Arial, Helvetica, "Nimbus Sans L", sans-serif;
+
+$courier:         "Courier New", "DejaVu Sans Mono", monospace, sans-serif;
+
+// Now create some variables for the font stacks we want to use on this site.
+$base-font-family: $verdana;
+$font-monospace:   $courier;
+
+//
+// Colors, etc.
+//
+
+// General colors.
+$base-color-black:	#111111;
+$base-color-grey:	#888888;
+$base-color-white:	#f5f5f5;
+
+// Element colors.
+$base-color-bg:		#ffffff;
+$base-color-text:	#333333;
+
+
+// =============================================================================
+// Partials to be shared with all .scss files.
+// =============================================================================
+//
+// Partials to be shared with all .scss files.
+//
+
+@import "compass/reset"; // Does what it says on the tin.
+@import "compass/support"; // Add Compass' IE and vendor prefix support variables.
+@import "compass/utilities/general/clearfix"; // Handy clearfix.
+@import "compass/utilities/sprites"; // See http://compass-style.org/help/tutorials/spriting
+@import "compass/css3"; // Use one CSS3 mixin instead of multiple vendor prefixes
+@import "compass/typography/vertical_rhythm"; // Helps set up a vertical rhythm.
+
+@import "mixins"; // Now we add our custom helper mixins.
