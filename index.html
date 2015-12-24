@@ -8,24 +8,22 @@
 </head>
 <body>
 
-<div class="page">
-	<header class="page-header">
-		<h1 class="main-title">Nanostrap says "Hi!"</h1>
-		<p class="main-slogan">A nano sized framework to be used as a starting point for simple, static web projects. Exactly one billionth simpler then Bootstrap</p>
-	</header>
+	<todo></todo>
 
-	<div class="page-content">
-		<section>
-			<p>Let's get started...</p>
-		</section>
+    <script src="https://cdn.jsdelivr.net/riot/2.0/riot.min.js"></script>
+    <script src="todo.js"></script>
 
-	</div>
-</div>
-
-<script>
-	console.log(gigwave);
-	gigwave.init();
-</script>
+	<script>
+	riot.mount('todo', {
+	title: 'I want to behave!',
+	items: [
+		{ title: 'Avoid excessive coffeine', done: true, hidden: false },
+		{ title: 'Hidden item', done: false, hidden: true },
+		{ title: 'Be less provocative', done: false, hidden: false  },
+		{ title: 'Be nice to people', done: false, hidden: false }
+	]
+	})
+	</script>
 
 
 

@@ -16,6 +16,14 @@ module.exports = function(grunt) {
       outputMin : '<%= meta.outputDir %>/<%= pkg.main.replace("js", "min.js") %>'
     },
 
+    riot: {
+      options: {
+        concat : true,
+      },
+      src: 'js/tags/*.tag',
+      dest: 'js/src/tags.js'
+    },
+
     concat: {
       options: {
         separator: ''
@@ -48,10 +56,16 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-riot');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task(s).
   grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('default', ['test','concat','uglify']);
+  grunt.registerTask('default', [
+    'test',
+    'riot',
+    'concat',
+    'uglify'
+  ]);
 
 };
