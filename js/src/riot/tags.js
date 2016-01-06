@@ -1,18 +1,19 @@
 (function(root, factory) {
 	if (typeof(define) === 'function' && define.amd) {
-		define(['riot'], function(riot) {
-			factory(riot);
+		define(['riot', 'riotcontrol'], function(riot, RiotControl) {
+			factory(riot, RiotControl);
 		});
 	}
 	else if (typeof(module) !== 'undefined' && typeof module.exports !== 'undefined') {
 		var riot = require('riot');
+		var RiotControl = require('riotcontrol');
 
-		factory(riot);
+		factory(riot, RiotControl);
 	}
 	else {
-		factory(root.riot);
+		factory(root.riot, root.RiotControl);
 	}
-})(this, function(riot) {
+})(this, function(riot, RiotControl) {
 	
 	riot.tag('bandsearch', '<h1>Search for a band!</h1><form onsubmit="{add}"><input name="input" onkeyup="{edit}"><button __disabled="{!text}">Search</button></form> ', function(opts) {
 	    this.items = opts.items
