@@ -14,7 +14,7 @@
 	}
 })(this, function(riot) {
 	
-	riot.tag('todo', '<h1>{opts.title}</h1><ul><li each="{items.filter(whatShow)}"><label class="{completed: done}"><input type="checkbox" __checked="{done}" onclick="{parent.toggle}"> {title} </label></li></ul><form onsubmit="{add}"><input name="input" onkeyup="{edit}"><button __disabled="{!text}">Add #{items.filter(whatShow).length + 1}</button><button __disabled="{items.filter(onlyDone).length == 0}" onclick="{removeAllDone}"> X{items.filter(onlyDone).length} </button></form> ', function(opts) {
+	riot.tag('bandsearch', '<h1>Search for a band!</h1><form onsubmit="{add}"><input name="input" onkeyup="{edit}"><button __disabled="{!text}">Search</button></form> ', function(opts) {
 	    this.items = opts.items
 	
 	    this.edit = function(e) {

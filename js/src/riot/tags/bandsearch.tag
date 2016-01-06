@@ -1,22 +1,11 @@
 
-<todo>
+<bandsearch>
 
-  <h1>{ opts.title }</h1>
-
-  <ul>
-    <li each={ items.filter(whatShow) }>
-      <label class={ completed: done }>
-        <input type="checkbox" checked={ done } onclick={ parent.toggle }> { title }
-      </label>
-    </li>
-  </ul>
+  <h1>Search for a band!</h1>
 
   <form onsubmit={ add }>
     <input name="input" onkeyup={ edit }>
-    <button disabled={ !text }>Add #{ items.filter(whatShow).length + 1 }</button>
-
-    <button disabled={ items.filter(onlyDone).length == 0 } onclick={ removeAllDone }>
-    X{ items.filter(onlyDone).length } </button>
+    <button disabled={ !text }>Search</button>
   </form>
 
   <!-- this script tag is optional -->
@@ -56,4 +45,4 @@
     }
   </script>
 
-</todo>
+</bandsearch>

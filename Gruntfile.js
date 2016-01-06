@@ -23,12 +23,13 @@ module.exports = function(grunt) {
           type: 'umd',
           deps: [
             'riot',
+            {'riotcontrol', RiotControl}
           ]
         }
       },
       dist: {
         src: 'js/src/riot/tags/*.tag',
-        dest: 'js/src/riot/todo.js',
+        dest: 'js/src/riot/tags.js',
         ext: '.js',
       }
     },
@@ -40,6 +41,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'node_modules/riot/riot.min.js',
+          'node_modules//RiotControl/riotcontrol.js',
           'js/src/*.js',
           'js/src/riot/*.js',
         ],
