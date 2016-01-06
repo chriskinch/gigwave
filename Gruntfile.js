@@ -19,9 +19,18 @@ module.exports = function(grunt) {
     riot: {
       options: {
         concat : true,
+        modular: {
+          type: 'umd',
+          deps: [
+            'riot',
+          ]
+        }
       },
-      src: 'js/tags/*.tag',
-      dest: 'js/src/tags.js'
+      dist: {
+        src: 'js/src/riot/tags/*.tag',
+        dest: 'js/src/riot/todo.js',
+        ext: '.js',
+      }
     },
 
     concat: {
@@ -31,6 +40,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'js/src/*.js',
+          'js/src/riot/*.js',
         ],
         dest: '<%= meta.output %>.js'
       }
@@ -48,7 +58,10 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['Gruntfile.js', 'js/src/']
+      files: [
+        'Gruntfile.js',
+        'js/src/*.js',
+      ]
     },
 
   });
