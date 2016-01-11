@@ -9,10 +9,13 @@
     "node_modules"
   ],
   "devDependencies": {
+    "connect-livereload": "^0.5.4",
     "grunt": "~0.4.2",
     "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
     "grunt-riot": "^0.1.4",
     "jquery": "~2.1.0-0",
     "riot": "^2.3.12",

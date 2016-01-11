@@ -187,10 +187,6 @@ function GigwaveStore() {
   
   var self = this
 
-  self.todos = [ 
-    { title: 'Task 1', done: false },
-    { title: 'Task 2', done: false }  
-  ]
 
   // Our store's event handlers / API.
   // This is where we would use AJAX calls to interface with the server.
@@ -234,6 +230,11 @@ function GigwaveStore() {
 	riot.tag('bandsearch', '<h1>Search for a band!</h1><form onsubmit="{add}"><input name="input" onkeyup="{edit}"><button __disabled="{!text}">Search</button></form> ', function(opts) {
 	    this.items = opts.items
 	
+	  RiotControl.on('todos_changed', function(items) {
+	    self.items = items
+	    self.update()
+	  }) 
+	
 	    this.edit = function(e) {
 	      this.text = e.target.value
 	    }.bind(this);
@@ -243,26 +244,6 @@ function GigwaveStore() {
 	        this.items.push({ title: this.text })
 	        this.text = this.input.value = ''
 	      }
-	    }.bind(this);
-	
-	    this.removeAllDone = function(e) {
-	      this.items = this.items.filter(function(item) {
-	        return !item.done
-	      })
-	    }.bind(this);
-	
-	    this.whatShow = function(item) {
-	      return !item.hidden
-	    }.bind(this);
-	
-	    this.onlyDone = function(item) {
-	     return item.done
-	   }
-	
-	    this.toggle = function(e) {
-	      var item = e.item
-	      item.done = !item.done
-	      return true
 	    }.bind(this);
 	  
 	});

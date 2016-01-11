@@ -6,10 +6,6 @@ function GigwaveStore() {
   
   var self = this
 
-  self.todos = [ 
-    { title: 'Task 1', done: false },
-    { title: 'Task 2', done: false }  
-  ]
 
   // Our store's event handlers / API.
   // This is where we would use AJAX calls to interface with the server.

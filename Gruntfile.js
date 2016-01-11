@@ -67,6 +67,40 @@ module.exports = function(grunt) {
       ]
     },
 
+    watch: {
+      src: {
+        options: {
+          debounceDelay: 250,
+          livereload: true
+        },
+        files: [
+          '**/src/*.js',
+          '**/src/riot/*.js',
+          '**/src/riot/tags/*.tag',
+          'index.html',
+        ],
+        tasks: ['default'],
+      },
+    },
+
+    reload: {
+        port: 35729,
+        proxy: {
+            host: 'localhost',
+        }
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: 8000,
+          hostname: '*',
+          //keepalive: true,
+          livereload: true
+        }
+      }
+    }
+
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -74,9 +108,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-riot');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-reload');
 
   // Default task(s).
   grunt.registerTask('test', ['jshint']);
+  grunt.registerTask('server', ['connect', 'watch']);
   grunt.registerTask('default', [
     'test',
     'riot',

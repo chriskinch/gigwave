@@ -12,6 +12,13 @@
   <script>
     this.items = opts.items
 
+
+      // Register a listener for store change events.
+  RiotControl.on('todos_changed', function(items) {
+    self.items = items
+    self.update()
+  }) 
+
     edit(e) {
       this.text = e.target.value
     }
@@ -21,27 +28,6 @@
         this.items.push({ title: this.text })
         this.text = this.input.value = ''
       }
-    }
-
-    removeAllDone(e) {
-      this.items = this.items.filter(function(item) {
-        return !item.done
-      })
-    }
-
-    // an two example how to filter items on the list
-    whatShow(item) {
-      return !item.hidden
-    }
-
-    onlyDone(item) {
-     return item.done
-   }
-
-    toggle(e) {
-      var item = e.item
-      item.done = !item.done
-      return true
     }
   </script>
 
