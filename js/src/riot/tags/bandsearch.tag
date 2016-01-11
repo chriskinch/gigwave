@@ -10,14 +10,9 @@
 
   <!-- this script tag is optional -->
   <script>
-    this.items = opts.items
-
-
-      // Register a listener for store change events.
-  RiotControl.on('todos_changed', function(items) {
-    self.items = items
-    self.update()
-  }) 
+    var self = this;
+    self.items = opts.items
+    
 
     edit(e) {
       this.text = e.target.value
@@ -29,6 +24,16 @@
         this.text = this.input.value = ''
       }
     }
+
+    // Register a listener for store change events.
+    RiotControl.on('gigwave_changed', function(items) {
+      self.items = items;
+      self.update();
+    })
+
+    self.on('mount', function() {
+      RiotControl.trigger('gigwave_init');
+    })
   </script>
 
 </bandsearch>

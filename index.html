@@ -14,6 +14,8 @@
     <script src="js/dist/scripts.js"></script>
 
 	<script>
+	var gigwaveStore = new GigwaveStore(); // Create a store instance.
+    RiotControl.addStore(gigwaveStore); // Register the store in central dispatch.
 	riot.mount('bandsearch');
 	</script>
 
