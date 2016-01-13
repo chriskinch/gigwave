@@ -24,8 +24,14 @@ function GigwaveStore() {
     self.loadJSON(self.api_url, self.api_params);
   })
 
-  self.on('todo_init', function() {
-    self.trigger('todos_changed', self.todos)
+  self.on('gigwave_selected_band', function(items) {
+    self.each(items, function(key, val) {
+      if(val.selected === true){
+        self.selected = val;
+        console.log(self);
+      }
+    });
+    //self.trigger('todos_changed', self.todos)
   })
 
   self.loadJSON = function(url, params) {
@@ -57,7 +63,6 @@ function GigwaveStore() {
   self.formatData = function(data) {
     self.each(data, function(key, val){
       val.text = val.name; // Adding "text" for Riot Gear component "autocomplete"
-      console.log(val);
     });
 
     return data

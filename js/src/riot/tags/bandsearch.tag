@@ -18,13 +18,12 @@
       autocomplete: true,
       placeholder: 'Please select a card',
       filteron: 'text',
-      onopen: function () {console.log(this)},
+      onopen: function () {},
       onclose: function () {},
       onfilter: function () {},
-      onselect: function () {},
+      onselect: function () { RiotControl.trigger('gigwave_selected_band', this.filtereditems); },
       //options will be added later
-    })
-    
+    })    
 
     edit(e) {
       this.text = e.target.value
@@ -45,7 +44,6 @@
 
     RiotControl.on('gigwave_loaded_bands', function(items) {
       self.select.options = items; // adding options now that bands have loaded
-      console.log(self.select)
     })
 
     self.on('mount', function() {
