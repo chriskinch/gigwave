@@ -16,6 +16,9 @@ function GigwaveStore() {
     limit: 1000
   }
 
+  // Local data for testing! REMOVE FOR PRODUCTION!
+  self.api_url = "http://localhost:8000/dummydata.json?";
+
   // Our store's event handlers / API.
   // This is where we would use AJAX calls to interface with the server.
   // Any number of views can emit actions/events without knowing the specifics of the back-end.
