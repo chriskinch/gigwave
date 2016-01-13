@@ -7,11 +7,13 @@ function GigwaveStore() {
   var self = this
   console.log(this);
 
+  //http://ws.audioscrobbler.com/2.0/?method=chart.getTopArtists&api_key=31ef949b49acf31f34714d3380e8423c&format=json
   self.api_url = "http://ws.audioscrobbler.com/2.0/?";
   self.api_params = {
     method: "chart.getTopArtists",
     api_key: "31ef949b49acf31f34714d3380e8423c",
-    format: "json"
+    format: "json",
+    limit: 1000
   }
 
   // Our store's event handlers / API.
@@ -39,9 +41,9 @@ function GigwaveStore() {
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           var data = JSON.parse(xhr.response); // The response comes as a string so we convert it to JSON
-          self.artists = data;
-          console.log(data.artists);
-          self.trigger('gigwave_changed', data.artists.artist)
+          self.artists = self.formatData(data.artists.artist);
+          self.trigger('gigwave_changed', self.artists);
+          self.trigger('gigwave_loaded_bands', self.artists);
         }
       };
       xhr.open("GET", url + prm, true); // Async is true
@@ -49,6 +51,32 @@ function GigwaveStore() {
     } catch (e) {
       console.log( 'Error loading JSON' );
       console.log(e);
+    }
+  }
+
+  self.formatData = function(data) {
+    self.each(data, function(key, val){
+      val.text = val.name; // Adding "text" for Riot Gear component "autocomplete"
+      console.log(val);
+    });
+
+    return data
+  }
+
+  /**
+  * Helper function for iterating over a collection
+  *
+  * @param list
+  * @param fn
+  */
+  self.each = function(list, fn) {
+    for (var key in list) {
+      if( list.hasOwnProperty(key) ) {
+        cont = fn(key, list[key]);
+        if(cont === false) {
+          break; //allow early exit
+        }
+      }
     }
   }
 

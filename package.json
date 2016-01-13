@@ -19,6 +19,7 @@
     "grunt-riot": "^0.1.4",
     "jquery": "~2.1.0-0",
     "riot": "^2.3.12",
-    "riotcontrol": "0.0.3"
+    "riotcontrol": "0.0.3",
+    "riotgear": "^2.1.3"
   }
 }

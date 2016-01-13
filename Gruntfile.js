@@ -42,6 +42,7 @@ module.exports = function(grunt) {
         src: [
           'node_modules/riot/riot.min.js',
           'node_modules/RiotControl/riotcontrol.js',
+          'node_modules/riotgear/dist/rg.min.js',
           'js/src/*.js',
           'js/src/riot/*.js',
         ],
