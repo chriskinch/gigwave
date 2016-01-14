@@ -7,37 +7,46 @@ function GigwaveStore() {
   var self = this
   console.log(this);
 
-  //http://ws.audioscrobbler.com/2.0/?method=chart.getTopArtists&api_key=31ef949b49acf31f34714d3380e8423c&format=json
   self.api_url = "http://ws.audioscrobbler.com/2.0/?";
-  self.api_params = {
+  self.api_key = "31ef949b49acf31f34714d3380e8423c";
+  //http://ws.audioscrobbler.com/2.0/?method=chart.getTopArtists&api_key=31ef949b49acf31f34714d3380e8423c&format=json
+  self.band_params = {
     method: "chart.getTopArtists",
-    api_key: "31ef949b49acf31f34714d3380e8423c",
+    api_key: self.api_key,
     format: "json",
     limit: 1000
   }
+  //http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&api_key=31ef949b49acf31f34714d3380e8423c&format=json
+  self.location_params = {
+    method: "geo.getTopArtists",
+    country: 31,
+    api_key: self.api_key,
+    format: "json"
+  }
 
   // Local data for testing! REMOVE FOR PRODUCTION!
-  self.api_url = "http://localhost:8000/dummydata.json?";
+  //self.api_url = "http://localhost:8000/dummydata.json?";
 
   // Our store's event handlers / API.
   // This is where we would use AJAX calls to interface with the server.
   // Any number of views can emit actions/events without knowing the specifics of the back-end.
   // This store can easily be swapped for another, while the view components remain untouched.
   self.on('gigwave_init', function() {
-    self.loadJSON(self.api_url, self.api_params);
+    self.loadJSON(self.api_url, self.band_params, "artists", "artists.artist", "name", "gigwave_loaded_bands");
+    self.loadJSON("countrycodes.json?", {}, "countrycodes", null, "Name", "gigwave_loaded_locations");
   })
 
-  self.on('gigwave_selected_band', function(items) {
+  self.on('gigwave_selected', function(items) {
     self.each(items, function(key, val) {
       if(val.selected === true){
         self.selected = val;
-        console.log(self);
+        console.log(val);
       }
     });
     //self.trigger('todos_changed', self.todos)
   })
 
-  self.loadJSON = function(url, params) {
+  self.loadJSON = function(url, params, store, target, text_map, trigger) {
     var self = this;
 
     var evt = new CustomEvent('lastfmfeeds:getjson');
@@ -50,9 +59,11 @@ function GigwaveStore() {
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           var data = JSON.parse(xhr.response); // The response comes as a string so we convert it to JSON
-          self.artists = self.formatData(data.artists.artist);
-          self.trigger('gigwave_changed', self.artists);
-          self.trigger('gigwave_loaded_bands', self.artists);
+          console.log(data);
+          var data_ref = (target) ? self.ref(data, target) : data; 
+          self[store] = self.formatData(data_ref, text_map);
+          self.trigger('gigwave_changed', self[store]);
+          self.trigger(trigger, self[store]);
         }
       };
       xhr.open("GET", url + prm, true); // Async is true
@@ -63,12 +74,19 @@ function GigwaveStore() {
     }
   }
 
-  self.formatData = function(data) {
+  self.formatData = function(data, map) {
     self.each(data, function(key, val){
-      val.text = val.name; // Adding "text" for Riot Gear component "autocomplete"
+      val.text = val[map]; // Adding "text" for Riot Gear component "autocomplete"
     });
 
     return data
+  }
+
+  self.ref = function(obj, str) {
+    str = str.split(".");
+    for (var i = 0; i < str.length; i++)
+        obj = obj[str[i]];
+    return obj;
   }
 
   /**

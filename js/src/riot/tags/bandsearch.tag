@@ -5,7 +5,8 @@
 
   <form onsubmit={ add }>
     <!-- <input name="input" onkeyup={ edit }> -->
-    <rg-select select="{ select }"></rg-select>
+    <rg-select select="{ select_band }"></rg-select>
+    <rg-select select="{ select_location }"></rg-select>
     <button disabled={ !text }>Search</button>
   </form>
 
@@ -14,16 +15,21 @@
     var self = this;
     self.items = opts.items
 
-    self.select = new RgSelect({
+    self.select_band = new RgSelect({
       autocomplete: true,
-      placeholder: 'Please select a card',
+      placeholder: 'Please select a band',
       filteron: 'text',
-      onopen: function () {},
-      onclose: function () {},
-      onfilter: function () {},
-      onselect: function () { RiotControl.trigger('gigwave_selected_band', this.filtereditems); },
+      onselect: function () { RiotControl.trigger('gigwave_selected', this.filtereditems); },
       //options will be added later
-    })    
+    })
+
+    self.select_location = new RgSelect({
+      autocomplete: true,
+      placeholder: 'Please select a location',
+      filteron: 'text',
+      onselect: function () { RiotControl.trigger('gigwave_selected', this.filtereditems); },
+      //options will be added later
+    })   
 
     edit(e) {
       this.text = e.target.value
@@ -43,7 +49,12 @@
     })
 
     RiotControl.on('gigwave_loaded_bands', function(items) {
-      self.select.options = items; // adding options now that bands have loaded
+      self.select_band.options = items; // adding options now that bands have loaded
+    })
+
+    RiotControl.on('gigwave_loaded_locations', function(items) {
+      console.log(items)
+      self.select_location.options = items; // adding options now that bands have loaded
     })
 
     self.on('mount', function() {
