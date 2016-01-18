@@ -53,7 +53,6 @@
     })
 
     RiotControl.on('gigwave_loaded_locations', function(items) {
-      console.log(items)
       self.select_location.options = items; // adding options now that bands have loaded
     })
 
