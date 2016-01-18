@@ -5,7 +5,6 @@ function GigwaveStore() {
   riot.observable(this) // Riot provides our event emitter.
   
   var self = this
-  console.log(this);
 
   self.api_url = "http://ws.audioscrobbler.com/2.0/?";
   self.api_key = "31ef949b49acf31f34714d3380e8423c";
@@ -14,7 +13,7 @@ function GigwaveStore() {
     method: "chart.getTopArtists",
     api_key: self.api_key,
     format: "json",
-    limit: 1000
+    limit: 999
   }
   //http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&api_key=31ef949b49acf31f34714d3380e8423c&format=json
   self.location_params = {
@@ -41,6 +40,7 @@ function GigwaveStore() {
       if(val.selected === true){
         self.selected = val;
         console.log(val);
+        console.log(val.index);
       }
     });
     //self.trigger('todos_changed', self.todos)
@@ -74,9 +74,12 @@ function GigwaveStore() {
     }
   }
 
-  self.formatData = function(data, map) {
+  self.formatData = function(data, map) {    
     self.each(data, function(key, val){
-      val.text = val[map]; // Adding "text" for Riot Gear component "autocomplete"
+      console.log(key)
+      var num = Number(key) + 1;
+      val.text = num + ". " + val[map]; // Adding "text" for Riot Gear component "autocomplete"
+
     });
 
     return data
