@@ -12,16 +12,18 @@ Array.prototype.clean = function(del) {
 	return this;
 };
 
-function setClassesArray(item, key, limit) {
+var helpers = {};
+
+helpers.setClassesArray = function(item, key, limit) {
 	var first = (key === 0) ? 'first' : '';
 	var last = (key === limit-1) ? 'last' : '';
 	var classes_array = [item, first, last];
 	var classes = classes_array.clean('').join(' ').trim();
 
 	return classes;
-}
+};
 
-function timeAgo(date){
+helpers.timeAgo = function(date){
 	var m = 60;
 	var h = m * 60;
 	var d = new Date();
@@ -33,7 +35,7 @@ function timeAgo(date){
 
 	var when = (elapsed_string) ? elapsed_string + plural + ' ago' : date['#text'];
 	return when;
-}
+};
 
 /**
 * Helper function for iterating over a collection
@@ -41,7 +43,7 @@ function timeAgo(date){
 * @param list
 * @param fn
 */
-function each(list, fn) {
+helpers.each = function(list, fn) {
 	for (var key in list) {
 		if( list.hasOwnProperty(key) ) {
 			cont = fn(key, list[key]);
@@ -50,14 +52,14 @@ function each(list, fn) {
 			}
 		}
 	}
-}
+};
 
 /**
 * Helper function for turning object into a string of params
 *
 * @param obj
 */
-function objToParams(obj) {
+helpers.objToParams = function(obj) {
 	var str = "";
 	for (var key in obj) {
 		if (str !== "") {
@@ -66,22 +68,11 @@ function objToParams(obj) {
 		str += key + "=" + obj[key];
 	}
 	return str;
-}
+};
 
-/**
- * CustomEvent polyfill
- */
-if (typeof window.CustomEvent !== 'function') {
-  (function() {
-    function CustomEvent(event, params) {
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
-      var evt = document.createEvent('CustomEvent');
-      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-      return evt;
-     }
-
-    window.CustomEvent = CustomEvent;
-
-    CustomEvent.prototype = window.CustomEvent.prototype;
-  })();
-}
+helpers.objectRef = function(obj, str) {
+  str = str.split(".");
+  for (var i = 0; i < str.length; i++)
+      obj = obj[str[i]];
+  return obj;
+};
