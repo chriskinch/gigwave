@@ -6,6 +6,8 @@
     var self = this;
     self.items = opts.items
 
+    //console.log(self);
+
     self.select = new RgSelect({
       autocomplete: true,
       placeholder: 'Please select a ' + self.type,
@@ -20,8 +22,9 @@
       self.update();
     })
 
-    RiotControl.on('gigwave_loaded', function(items) {
-      self.select.options = items[self.type]; // adding options now that bands have loaded
+    RiotControl.on('gigwave_loaded_' + self.type, function(items) {
+      console.log(self);
+      self.select.options = items; // adding options now that bands have loaded
     })
   </script>
 

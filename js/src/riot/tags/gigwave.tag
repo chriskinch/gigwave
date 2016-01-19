@@ -13,8 +13,6 @@
     var self = this;
     self.items = opts.items
 
-    console.log(self);
-
     edit(e) {
       this.text = e.target.value
     }
