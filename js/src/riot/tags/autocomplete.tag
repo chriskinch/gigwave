@@ -23,7 +23,6 @@
     })
 
     RiotControl.on('gigwave_loaded_' + self.type, function(items) {
-      console.log(self);
       self.select.options = items; // adding options now that bands have loaded
     })
   </script>

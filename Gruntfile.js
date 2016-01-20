@@ -65,6 +65,8 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         'js/src/*.js',
+        'js/src/riot/*.js',
+        '!js/src/riot/tags.js'
       ]
     },
 

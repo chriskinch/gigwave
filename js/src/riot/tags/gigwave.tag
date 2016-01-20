@@ -23,10 +23,6 @@
         this.text = this.input.value = ''
       }
     }
-
-    self.on('mount', function() {
-      RiotControl.trigger('gigwave_init');
-    })
   </script>
 
 </gigwave>
