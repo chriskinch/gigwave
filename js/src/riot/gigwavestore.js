@@ -29,6 +29,14 @@ function GigwaveStore() {
 		callback: "processLocations"
 	};
 
+	self.events = {
+		params: {
+			method: "events.getEvents",
+			format: "json"
+		},
+		callback: "processEvents"
+	};
+
 	// Local data for testing! REMOVE FOR PRODUCTION!
 	// self.api_url = "http://localhost:8000/dummydata.json?";
 
@@ -54,6 +62,7 @@ function GigwaveStore() {
 			var prm = helpers.objToParams(params); // Convert our param object into a string
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4) {
+					console.log(xhr.response);
 					var data = JSON.parse(xhr.response); // The response comes as a string so we convert it to JSON
 					self[callback](data);
 				}
@@ -80,6 +89,12 @@ function GigwaveStore() {
 		self.trigger('gigwave_loaded_locations', self.locations.data);
 	};
 
+	self.processEvents = function(data) {
+		self.events.data = self.formatData(data.events.event, "venue");
+		self.trigger('gigwave_loaded_events', self.events.data);
+		console.log(data);
+	};
+
 	self.formatData = function(data, map) {    
 		helpers.each(data, function(key, val){
 			val.text = val[map]; // Adding "text" for Riot Gear component "autocomplete"
@@ -98,6 +113,7 @@ function GigwaveStore() {
 	};
 
 	self.loadJSON("countrycodes.json?", self.locations.params, self.locations.callback);
+	self.loadJSON("dummyevents.json?", self.events.params, self.events.callback);
 	self.loadJSON(self.api_url, self.bands.params, self.bands.callback);
 	// The store emits change events to any listening views, so that they may react and redraw themselves.
 
