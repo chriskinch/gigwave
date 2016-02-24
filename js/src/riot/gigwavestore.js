@@ -69,6 +69,9 @@ function GigwaveStore() {
 	self.processBands = function(data) {
 		self.bands.data = self.formatData(data.artists.artist, "name");
 		self.bands.data = self.addIndex(data.artists.artist, "text");
+
+		// Save data to DB for date here
+
 		self.trigger('gigwave_loaded_bands', self.bands.data);
 	};
 
