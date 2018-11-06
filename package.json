@@ -17,7 +17,6 @@
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-riot": "^0.1.4",
-    "jquery": "~2.1.0-0",
     "nosql": "^3.0.5",
     "riot": "^2.3.12",
     "riotcontrol": "0.0.3",
